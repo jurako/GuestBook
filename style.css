@@ -1,0 +1,55 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+body {
+    background-color: #0099ff;
+    color: #999999;
+}
+#container {
+    background-color: #ffffff;
+    margin: 20px auto;
+    padding: 20px;
+    height: 700px;
+    width: 600px;
+    border: 2px solid #cccccc;
+    border-radius: 20px;
+}
+#messages {
+    margin: 0px auto;
+    width: 500px;
+    height: 350px;
+    overflow: hidden;
+}
+#message {
+    width: 500px;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+.red-star {
+    color: red;
+}
+#input {
+    color: #666666;
+    margin: 0px auto;
+    width: 500px;
+    height: 250px;
+    overflow: hidden;
+}
+#input h3 {
+    text-align: center;
+    margin: 20px 0px;
+}
+#input label {
+    display: inline-block;
+    width: 100px;
+    text-align: left;
+    margin-bottom: 10px;
+}
+.align-top {
+    vertical-align: top;
+}
+#submit-button {
+    display: block;
+    margin: 0px auto;
+}
