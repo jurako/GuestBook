@@ -2,6 +2,9 @@
     require_once 'components/db_connection.php';
     require_once 'components/functions.php';
     
+    //display messages
+    $messages = getMessages();
+    
     //user input validation
     $errors = array (
         "username" => "",
@@ -17,6 +20,7 @@
         $errors['homepage'] = checkHomepage($_POST['homepage']);
         $errors['text'] = checkText($_POST['text']);
     }
+    
 
 ?>
 
@@ -32,9 +36,31 @@
     <body>
         <div id="container">
             <div id="messages">
-                <div id="message">
-                    <p>asdasdasdasdasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdasdasdasdasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdasdasdasdasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdasdasdasdasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdasdasdasdasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdasdasdasdasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdasdasdasdasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdasdasdasdasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdasdasdasdasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaaasdasdasdasdasdasdaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                </div>
+                <form id="sort-form" action="sort_messages.php" method="POST">
+                <table id="main-table">
+                    <tr>
+                        <th class="filter-buttons">
+                            <input class="sort-button" type="submit" name="ZDESJ PHP KOD" value="Date">
+                        </th>
+                        <th class="filter-buttons">
+                            <input class="sort-button" type="submit" name="ZDESJ PHP KOD" value="Username">                      
+                        </th>
+                        <th class="filter-buttons">
+                            <input class="sort-button" type="submit" name="ZDESJ PHP KOD" value="E-mail"> 
+                        </th>
+                    </tr>
+                    <?php  foreach ($messages as $message) { ?>
+                        <tr>
+                            <td class="table-head"><?php echo $message['date']; ?></td>
+                            <td class="table-head"><?php echo $message['username']; ?></td>
+                            <td class="table-head"><?php echo $message['email']; ?></td>
+                        </tr>
+                        <tr>
+                            <td class="table-text" colspan="3"><?php echo $message['text']; ?></td>
+                        </tr>
+                    <?php } ?>
+                </table>
+                </form>
             </div>
             <div id="input">
                 <h3>Leave a message!</h3>

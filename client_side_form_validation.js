@@ -16,6 +16,11 @@ function validate_input()
     {
         validInput = false; //flag = false
     }
+    
+    if (!checkText()) //if text is invalid
+    {
+        validInput = false; //flag = false
+    }
 
     if (validInput) {
         return true;
@@ -110,4 +115,21 @@ function checkHomepage()
         return true;    
     } else
         return true;
+}
+
+function checkText()
+{
+    var text = document.getElementById('text').value;
+    
+    if (text === "") {
+        document.getElementById('textError').innerHTML = "Required field!";
+        $('#text').addClass('red-border');
+        return false;
+    } else {
+        document.getElementById('textError').innerHTML = "";
+        $('#text').removeClass('red-border');     
+    }
+    
+    //if no mistakes - submit form
+    return true; 
 }

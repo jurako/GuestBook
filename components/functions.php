@@ -1,5 +1,7 @@
 <?php
 
+
+
 function getBrowser() 
 { 
     $u_agent = $_SERVER['HTTP_USER_AGENT']; 
@@ -85,6 +87,29 @@ function getBrowser()
         'pattern'    => $pattern
     );
 } 
+
+function getMessages()
+{
+    $user = "root";
+    $password = "";
+
+    $db = new PDO('mysql:host=localhost;dbname=guestbook', $user, $password);
+
+    $messages = [];
+    
+    $result = $db->query("SELECT * FROM messages ORDER BY user_id DESC");
+    
+    $i = 0;
+    while ($row = $result->fetch()) {
+        $messages[$i]['username'] = $row['username'];
+        $messages[$i]['email'] = $row['email'];
+        $messages[$i]['date'] = $row['date'];
+        $messages[$i]['text'] = $row['text'];
+        $i++;
+    }
+    
+    return $messages;
+}
 
 function saveMessage()
 {
