@@ -86,11 +86,65 @@ function getBrowser()
     );
 } 
 
-function checkUsername($username) {
-    if (preg_match('/[^A-Za-z0-9]+/', $username)) {
-        return true;
-    }
-    return false;
+function saveMessage()
+{
+    // get browser info
+    $ua=getBrowser();
+    $user_browser= $ua['name'] . " " . $ua['version'];   
+
+    $pdoStatement = $db->prepare("INSERT INTO messages (username, email, text, homepage, user_ip, user_agent) "
+                                 . "VALUES (:username, :email, :text, :homepage, :user_ip, :user_agent)");
+    $pdoStatement->execute(array(':username' => $_POST['username'], ':email' => $_POST['email'],
+                                  ':text' => $_POST['text'], ':homepage' => $_POST['homepage'],
+                                  ':user_ip' => $_SERVER['REMOTE_ADDR'], ':user_agent' => $user_browser));
 }
 
+function checkUsername($username) 
+{
+    if (empty($username))
+    {
+        return "Field required!";
+    }
+    if (preg_match('/[^A-Za-z0-9]/', $username)) 
+    {
+        return "Incorrect user name format!";
+    }
+
+    return "";
+}
+
+function checkEmail($email)
+{
+    if (empty($email))
+    {
+        return "Field required!";
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+    {
+        return "Incorrect e-mail format!";
+    }
+
+    return "";
+}
+
+function checkHomepage($homepage)
+{
+    if (!empty($homepage)) {
+        if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$homepage))
+        {
+            return "Incorrect URL format!";
+        }     
+    }
+
+    return "";
+}
+
+function checkText($text)
+{
+    if (empty($text))
+    {
+        return "Field required!";
+    }
+    return "";
+}
 ?>

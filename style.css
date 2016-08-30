@@ -33,7 +33,7 @@ body {
     color: #666666;
     margin: 0px auto;
     width: 500px;
-    height: 250px;
+    height: 350px;
     overflow: hidden;
 }
 #input h3 {
@@ -52,4 +52,14 @@ body {
 #submit-button {
     display: block;
     margin: 0px auto;
+}
+.errorText {
+    display: inline;
+    color: #f00; 
+    font-weight: bold; 
+    font-size: 10px;
+    width: 300px;
+}
+.red-border {
+    border: 1px solid red;
 }
