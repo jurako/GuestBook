@@ -1,7 +1,5 @@
 <?php
 
-
-
 function getBrowser() 
 { 
     $u_agent = $_SERVER['HTTP_USER_AGENT']; 
@@ -90,14 +88,9 @@ function getBrowser()
 
 function getMessages()
 {
-    $user = "root";
-    $password = "";
-
-    $db = new PDO('mysql:host=localhost;dbname=guestbook', $user, $password);
-
     $messages = [];
     
-    $result = $db->query("SELECT * FROM messages ORDER BY user_id DESC");
+    $result = $GLOBALS['db']->query("SELECT * FROM messages ORDER BY user_id DESC");
     
     $i = 0;
     while ($row = $result->fetch()) {
@@ -117,7 +110,7 @@ function saveMessage()
     $ua=getBrowser();
     $user_browser= $ua['name'] . " " . $ua['version'];   
 
-    $pdoStatement = $db->prepare("INSERT INTO messages (username, email, text, homepage, user_ip, user_agent) "
+    $pdoStatement = $GLOBALS['db']->prepare("INSERT INTO messages (username, email, text, homepage, user_ip, user_agent) "
                                  . "VALUES (:username, :email, :text, :homepage, :user_ip, :user_agent)");
     $pdoStatement->execute(array(':username' => $_POST['username'], ':email' => $_POST['email'],
                                   ':text' => $_POST['text'], ':homepage' => $_POST['homepage'],

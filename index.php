@@ -1,6 +1,7 @@
 <?php
     require_once 'components/db_connection.php';
     require_once 'components/functions.php';
+    require_once 'sort_messages';
     
     //display messages
     $messages = getMessages();
@@ -13,6 +14,10 @@
         "text" => ""
     );
     
+    //sort messages
+    if (isset($_POST['']))
+    
+    //send message
     if (isset($_POST['sendMessage']))
     {
         $errors['username'] = checkUsername($_POST['username']);
@@ -20,7 +25,6 @@
         $errors['homepage'] = checkHomepage($_POST['homepage']);
         $errors['text'] = checkText($_POST['text']);
     }
-    
 
 ?>
 
