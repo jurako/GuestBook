@@ -1,7 +1,7 @@
 <?php
     require_once 'components/db_connection.php';
     require_once 'components/functions.php';
-    require_once 'sort_messages';
+    require_once 'sort_messages.php';
     
     //display messages
     $messages = getMessages();
@@ -35,7 +35,7 @@
         <title>Guest Book</title>
         <link rel="stylesheet" type="text/css" href="style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script type="text/javascript" src="client_side_form_validation.js"></script>
+        <script type="text/javascript" src="validation_functions.js"></script>
     </head>
     <body>
         <div id="container">
@@ -44,13 +44,14 @@
                 <table id="main-table">
                     <tr>
                         <th class="filter-buttons">
-                            <input class="sort-button" type="submit" name="ZDESJ PHP KOD" value="Date">
+                            <input type="hidden" id="hiddenDate" value="ASC">
+                            <input class="sort-button" type="submit" name="sortButton" value="DateASC" onclick="changeSortingOrder();">
                         </th>
                         <th class="filter-buttons">
-                            <input class="sort-button" type="submit" name="ZDESJ PHP KOD" value="Username">                      
+                            <input class="sort-button" type="submit" name="sortButton" value="UsernameASC">                      
                         </th>
                         <th class="filter-buttons">
-                            <input class="sort-button" type="submit" name="ZDESJ PHP KOD" value="E-mail"> 
+                            <input class="sort-button" type="submit" name="sortButton" value="E-mailASC"> 
                         </th>
                     </tr>
                     <?php  foreach ($messages as $message) { ?>
