@@ -14,9 +14,12 @@ function sortFunction( $a, $b ) {
 }
 
 //changes the sorting orders of fields in $_SESSION['sortOrders']
-function changeSortOrders() {
-    if ($_SESSION["sortOrders"][$field] == "")
+function changeSortOrders($field) {
+    if ($_SESSION["sortOrders"][$field] == "") {
+        foreach ($_SESSION["sortOrders"] as $element) 
+            $element = "";
         $_SESSION["sortOrders"][$field] = "ASC";
+    }
     else if ($_SESSION["sortOrders"][$field] == "ASC")
         $_SESSION["sortOrders"][$field] = "DESC";
     else if ($_SESSION["sortOrders"][$field] == "DESC")
@@ -37,7 +40,7 @@ function sortDate($field) {
 function sortMessages($field) {
     $messages = array();   
     
-    changeSortOrders();
+    changeSortOrders($field);
     
     $resulSet = $GLOBALS["db"]->query("SELECT * FROM messages ORDER BY ".$field." ".$_SESSION["sortOrders"][$field]);
         

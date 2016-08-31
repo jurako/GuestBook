@@ -7,6 +7,10 @@
     //display messages
     if (isset($_POST['sortByDate'])) {
         $messages = sortMessages("date");
+    } elseif (isset($_POST['sortByUsername'])) {
+        $messages = sortMessages("username");
+    } elseif (isset($_POST['sortByEmail'])) {
+        $messages = sortMessages("email");
     } else {
         $messages = getMessages();
     }
@@ -47,19 +51,24 @@
                 <table id="main-table">
                     <tr>
                         <th class="filter-buttons">
-                            <input class="sort-button" type="submit" name="sortByDate" value="Date">
+                            <div class="sort-button" onclick="javascript:document.getElementById('sort-form').submit();" name="sortByDate" id="sortByDate" >Date</div>
                             <!-- sort icon -->
-                            <?php if(isset($_SESSION["sortOrders"])) { ?>
-                            <img 
-                                style="display: <?php if($_SESSION["sortOrders"]["date"] == "ASC") echo "inline"; ?>" 
-                                src="sort_desc.png" alt="sort descending" class="sort-icon">
+                            <?php if(empty($_SESSION["sortOrders"]["date"])) { ?>
+                                <img style="<?php echo "display: none"; ?>" 
+                                     src="sort_desc.png" alt="sort descending" class="sort-icon" onmouseover="highlightPreviousSibling();">
+                            <?php } elseif ($_SESSION["sortOrders"]["date"] == "ASC") { ?>
+                                <img style="<?php echo "display: inline-block"; ?>" 
+                                     src="sort_desc.png" alt="sort descending" class="sort-icon">
+                                <?php echo '<script> changeButtonStyle(); </script>'; 
+                                  } elseif ($_SESSION["sortOrders"]["date"] == "DESC") { ?>
+                                <!-- ADD JAVASCRIPT FUNCTIONS HERE -->
                             <?php } ?>
                         </th>
                         <th class="filter-buttons">
-                            <input class="sort-button" type="submit" name="sortByUsername" value="Username">                      
+                            <input class="sort-button" type="submit" name="sortByUsername" id="sortByUsername" value="Username">                      
                         </th>
                         <th class="filter-buttons">
-                            <input class="sort-button" type="submit" name="sortByEmail" value="E-mail"> 
+                            <input class="sort-button" type="submit" name="sortByEmail" id="sortByEmail" value="E-mail"> 
                         </th>
                     </tr>
                     <?php  foreach ($messages as $message) { ?>
