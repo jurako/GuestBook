@@ -83,7 +83,7 @@ table td {
     display: inline-block;
     color: #999999;
     font-weight: bold;
-    width: 90%;
+    width: 89%;
     height: 100%;
     background-color: #ffffff;
     border: 1px solid black;
@@ -96,4 +96,6 @@ table td {
 }
 .sort-icon {
     float: right;
+    border: 1px solid black;
+    padding: 1px 0;
 }
