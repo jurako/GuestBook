@@ -80,15 +80,20 @@ table td {
     border-bottom: 1px solid #cccccc;
 }
 .sort-button {
+    display: inline-block;
     color: #999999;
     font-weight: bold;
-    width: 100%;
+    width: 90%;
     height: 100%;
     background-color: #ffffff;
     border: 1px solid black;
+    float: left;
 }
 .sort-button:hover {
     background-color: #0099ff;
     color: #ffffff;
     cursor: pointer;
+}
+.sort-icon {
+    float: right;
 }

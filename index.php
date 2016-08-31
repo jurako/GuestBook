@@ -1,10 +1,15 @@
 <?php
+    session_start();
     require_once 'components/db_connection.php';
     require_once 'components/functions.php';
     require_once 'sort_messages.php';
     
     //display messages
-    $messages = getMessages();
+    if (isset($_POST['sortByDate'])) {
+        $messages = sortMessages("date");
+    } else {
+        $messages = getMessages();
+    }
     
     //user input validation
     $errors = array (
@@ -13,9 +18,6 @@
         "homepage" => "",
         "text" => ""
     );
-    
-    //sort messages
-    if (isset($_POST['']))
     
     //send message
     if (isset($_POST['sendMessage']))
@@ -36,22 +38,28 @@
         <link rel="stylesheet" type="text/css" href="style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script type="text/javascript" src="validation_functions.js"></script>
+        <script type="text/javascript" src="sorting_functions.js"></script>
     </head>
     <body>
         <div id="container">
-            <div id="messages">
-                <form id="sort-form" action="sort_messages.php" method="POST">
+            <div id="messages">   
+                <form id="sort-form" action="" method="POST">
                 <table id="main-table">
                     <tr>
                         <th class="filter-buttons">
-                            <input type="hidden" id="hiddenDate" value="ASC">
-                            <input class="sort-button" type="submit" name="sortButton" value="DateASC" onclick="changeSortingOrder();">
+                            <input class="sort-button" type="submit" name="sortByDate" value="Date">
+                            <!-- sort icon -->
+                            <?php if(isset($_SESSION["sortOrders"])) { ?>
+                            <img 
+                                style="display: <?php if($_SESSION["sortOrders"]["date"] == "ASC") echo "inline"; ?>" 
+                                src="sort_desc.png" alt="sort descending" class="sort-icon">
+                            <?php } ?>
                         </th>
                         <th class="filter-buttons">
-                            <input class="sort-button" type="submit" name="sortButton" value="UsernameASC">                      
+                            <input class="sort-button" type="submit" name="sortByUsername" value="Username">                      
                         </th>
                         <th class="filter-buttons">
-                            <input class="sort-button" type="submit" name="sortButton" value="E-mailASC"> 
+                            <input class="sort-button" type="submit" name="sortByEmail" value="E-mail"> 
                         </th>
                     </tr>
                     <?php  foreach ($messages as $message) { ?>
