@@ -5,11 +5,11 @@
     require_once 'sort_messages.php';
     
     //display messages
-    if (isset($_POST['sortByDate'])) {
+    if (isset($_POST['sortDate'])) {
         $messages = sortMessages("date");
-    } elseif (isset($_POST['sortByUsername'])) {
+    } elseif (isset($_POST['sortUsername'])) {
         $messages = sortMessages("username");
-    } elseif (isset($_POST['sortByEmail'])) {
+    } elseif (isset($_POST['sortEmail'])) {
         $messages = sortMessages("email");
     } else {
         $messages = getMessages();
@@ -50,26 +50,50 @@
                 <form id="sort-form" action="" method="POST">
                 <table id="main-table">
                     <tr>
+                        <!---------------------------- SORTING ---------------------------------->
                         <th class="filter-buttons">
-                            <div class="sort-button" onclick="javascript:document.getElementById('sort-form').submit();" name="sortByDate" id="sortByDate" >Date</div>
+                            <div class="sort-button" id="sortByDate" onclick="submitButton('sortDate');">Date 
                             <!-- sort icon -->
-                            <?php if(empty($_SESSION["sortOrders"]["date"])) { ?>
-                                <img style="<?php echo "display: none"; ?>" 
-                                     src="sort_desc.png" alt="sort descending" class="sort-icon" onmouseover="highlightPreviousSibling();">
-                            <?php } elseif ($_SESSION["sortOrders"]["date"] == "ASC") { ?>
-                                <img style="<?php echo "display: inline-block"; ?>" 
-                                     src="sort_desc.png" alt="sort descending" class="sort-icon">
-                                <?php echo '<script> changeButtonStyle(); </script>'; 
-                                  } elseif ($_SESSION["sortOrders"]["date"] == "DESC") { ?>
-                                <!-- ADD JAVASCRIPT FUNCTIONS HERE -->
-                            <?php } ?>
+                            <?php $date = $_SESSION["sortOrders"]["date"];
+                                  if(empty($date)) { 
+                                    echo "<img class='sort-icon' style='display: none'  src='sort_desc.png' alt='sort descending'>";
+                                } elseif ($date == "ASC") { 
+                                    echo "<img class='sort-icon' style='display: inline-block'  src='sort_asc.png' alt='sort ascending'>";
+                                } elseif ($date == "DESC") { 
+                                    echo "<img class='sort-icon' style='display: inline-block'  src='sort_desc.png' alt='sort descending'>";
+                                } ?>
+                            </div>    
+                            <input type="submit" name="sortDate" id="sortDate" style="display: none;">
                         </th>
                         <th class="filter-buttons">
-                            <input class="sort-button" type="submit" name="sortByUsername" id="sortByUsername" value="Username">                      
+                            <div class="sort-button" id="sortByUsername" onclick="submitButton('sortUsername');">Username 
+                            <!-- sort icon -->
+                            <?php $username = $_SESSION["sortOrders"]["username"];
+                                  if(empty($username)) { 
+                                    echo "<img class='sort-icon' style='display: none'  src='sort_desc.png' alt='sort descending'>";
+                                } elseif ($username == "ASC") { 
+                                    echo "<img class='sort-icon' style='display: inline-block'  src='sort_asc.png' alt='sort ascending'>";
+                                } elseif ($username == "DESC") { 
+                                    echo "<img class='sort-icon' style='display: inline-block'  src='sort_desc.png' alt='sort descending'>";
+                                } ?>
+                            </div>    
+                            <input type="submit" name="sortUsername" id="sortUsername" style="display: none;">
                         </th>
                         <th class="filter-buttons">
-                            <input class="sort-button" type="submit" name="sortByEmail" id="sortByEmail" value="E-mail"> 
+                            <div class="sort-button" id="sortByEmail" onclick="submitButton('sortEmail');">E-mail 
+                            <!-- sort icon -->
+                            <?php $email = $_SESSION["sortOrders"]["email"];
+                                  if(empty($email)) { 
+                                    echo "<img class='sort-icon' style='display: none'  src='sort_desc.png' alt='sort descending'>";
+                                } elseif ($email == "ASC") { 
+                                    echo "<img class='sort-icon' style='display: inline-block'  src='sort_asc.png' alt='sort ascending'>";
+                                } elseif ($email == "DESC") { 
+                                    echo "<img class='sort-icon' style='display: inline-block'  src='sort_desc.png' alt='sort descending'>";
+                                } ?>
+                            </div>    
+                            <input type="submit" name="sortEmail" id="sortEmail" style="display: none;">
                         </th>
+                        <!-----------------------------END SORTING------------------------------------->
                     </tr>
                     <?php  foreach ($messages as $message) { ?>
                         <tr>
@@ -105,6 +129,5 @@
                 
             </div>
         </div>
-        
     </body>
 </html>

@@ -62,7 +62,6 @@ table td {
 }
 #main-table {
     width: 100%;
-    border-collapse: collapse;
 }
 .filter-buttons {
     width: 33%;
@@ -87,30 +86,14 @@ table td {
     height: 100%;
     background-color: #ffffff;
     border: 1px solid black;
-    float: left;
+    text-align: center;
 }
 .sort-button:hover {
     background-color: #0099ff;
     color: #ffffff;
     cursor: pointer;
 }
-.sort-button:hover + .sort-icon {
-    background-color: #0099ff;
-    cursor: pointer;
-}
 .sort-icon {
     float: right;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    padding: 1px 0;
-}
-.sort-icon:hover {
-    background-color: #0099ff;
-    cursor: pointer;
-}
-.sort-icon:hover .sort-button {
-    background-color: #0099ff;
-}
-.add-right-border {
-    border-right: 1px solid black;
+    margin-right: 5px;
 }

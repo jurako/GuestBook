@@ -8,17 +8,12 @@ if(!isset($_SESSION["sortOrders"])) {
         "email" => ""
     );
 }
-//sorting function for usort function (for date) 
-function sortFunction( $a, $b ) { 
-    return strtotime($a["date"]) - strtotime($b["date"]);
-}
 
 //changes the sorting orders of fields in $_SESSION['sortOrders']
 function changeSortOrders($field) {
     if ($_SESSION["sortOrders"][$field] == "") {
-        foreach ($_SESSION["sortOrders"] as $element) 
-            $element = "";
-        $_SESSION["sortOrders"][$field] = "ASC";
+        $_SESSION["sortOrders"] = array_fill_keys(array ("date", "username", "email"), "");
+        $_SESSION["sortOrders"][$field] = "DESC";
     }
     else if ($_SESSION["sortOrders"][$field] == "ASC")
         $_SESSION["sortOrders"][$field] = "DESC";
@@ -27,7 +22,7 @@ function changeSortOrders($field) {
 }
 
 //performs date string conversion to timestap and sorts correctly
-function sortDate($field) {
+function sortDate($messages, $field) {
     if ($field == "date") {
         usort($messages, "sortFunction");
         //if sort is in DESC order just reverse array
@@ -35,6 +30,13 @@ function sortDate($field) {
             $messages = array_reverse($messages);
         }
     }
+    
+    return $messages;
+}
+
+//sorting function for usort function (for date) 
+function sortFunction( $a, $b ) { 
+    return strtotime($a["date"]) - strtotime($b["date"]);
 }
 
 function sortMessages($field) {
@@ -54,6 +56,7 @@ function sortMessages($field) {
     }
     
     //if the sort by date needed use usort function for correct sort by date
+    $messages = sortDate($messages, $field);
     
     return $messages;
 }
