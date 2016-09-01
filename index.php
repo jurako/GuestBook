@@ -3,6 +3,7 @@
     require_once 'components/db_connection.php';
     require_once 'components/functions.php';
     require_once 'sort_messages.php';
+    require_once 'components/pagination.php';
     
     //display messages
     if (isset($_POST['sortDate'])) {
@@ -12,7 +13,7 @@
     } elseif (isset($_POST['sortEmail'])) {
         $messages = sortMessages("email");
     } else {
-        $messages = getMessages();
+        $messages = getMessages($limit);
     }
     
     //user input validation
@@ -107,6 +108,10 @@
                     <?php } ?>
                 </table>
                 </form>
+            </div>
+            <div id="pagination">
+                <h2><?php echo $textline1; ?></h2>
+                <h2><?php echo $textline1; ?></h2>
             </div>
             <div id="input">
                 <h3>Leave a message!</h3>

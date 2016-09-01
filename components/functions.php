@@ -86,11 +86,11 @@ function getBrowser()
     );
 } 
 
-function getMessages()
+function getMessages($limit)
 {
     $messages = [];
     
-    $result = $GLOBALS['db']->query("SELECT * FROM messages ORDER BY user_id DESC");
+    $result = $GLOBALS['db']->query("SELECT * FROM messages ORDER BY user_id DESC " .$limit);
     
     $i = 0;
     while ($row = $result->fetch()) {
