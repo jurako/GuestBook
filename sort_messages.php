@@ -38,6 +38,18 @@ function checkActiveSort() {
     return $columnName;
 }
 
+//remove everything after first parameter in $_GET
+function generateSortLinks() {
+    $uri = $_SERVER["REQUEST_URI"];
+    $resultUri = "";
+    
+    if(strpos($uri, "&") !== false) {
+        $resultUri = substr($uri, 0, strpos($uri, "&"));
+    }
+    
+    return $resultUri;
+}
+
 function sortMessages($field, $limit) {
     $messages = array();   
     

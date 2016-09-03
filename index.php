@@ -58,7 +58,7 @@
     <body>
         <div id="container">
             <div id="messages">   
-                <form id="sort-form" action="" method="POST">
+                <form id="sort-form" action="<?php echo generateSortLinks(); ?>" method="POST">
                 <table id="main-table">
                     <tr>
                         <!---------------------------- SORTING ---------------------------------->
