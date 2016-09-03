@@ -4,7 +4,7 @@
 }
 body {
     background-color: #0099ff;
-    color: black;
+    color: #999999;
 }
 #container {
     background-color: #ffffff;
@@ -22,6 +22,14 @@ body {
 }
 .red-star {
     color: red;
+}
+#pagination {
+    margin: 0px auto;
+    width: 500px;
+    overflow: hidden;
+}
+#pagination h3, p {
+    margin: 10px 0;
 }
 #input {
     color: #666666;

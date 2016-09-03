@@ -50,10 +50,11 @@ function generateSortLinks() {
     return $resultUri;
 }
 
-function sortMessages($field, $limit) {
+function sortMessages($field, $limit, $activeFilter) {
     $messages = array();   
     
-    changeSortOrders($field);
+    if($activeFilter)
+        changeSortOrders($field);
     
     $resulSet = $GLOBALS["db"]->query("SELECT * FROM messages ORDER BY ".$field." ".$_SESSION["sortOrders"][$field]." ".$limit);
         

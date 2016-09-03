@@ -6,19 +6,28 @@
     require_once 'components/pagination.php';
     
     //display messages
+    $filterActive=true;
     if (isset($_GET['activeSort'])) {
         $sortOrder = $_GET['activeSort'];   //SANITAZE HERE!!! 
-        echo $sortOrder;
     }
     else  
         $sortOrder = "";
     
-    if (isset($_POST['sortDate']) || $sortOrder == "sortDate") {
-        $messages = sortMessages("date", $limit);
-    } elseif (isset($_POST['sortUsername']) || $sortOrder == "sortUsername") {
-        $messages = sortMessages("username", $limit);
-    } elseif (isset($_POST['sortEmail']) || $sortOrder == "sortEmail") {
-        $messages = sortMessages("email", $limit);
+    if (isset($_POST['sortDate'])) {
+        $messages = sortMessages("date", $limit, $filterActive);
+    }  elseif ($sortOrder == "sortDate") {
+        $filterActive = false;
+        $messages = sortMessages("date", $limit, $filterActive);
+    } elseif (isset($_POST['sortUsername'])) {
+        $messages = sortMessages("username", $limit, $filterActive);
+    } elseif ($sortOrder == "sortUsername") {
+        $filterActive = false; 
+        $messages = sortMessages("username", $limit, $filterActive);
+    } elseif (isset($_POST['sortEmail'])) {
+        $messages = sortMessages("email", $limit, $filterActive);
+    } elseif ($sortOrder == "sortEmail") {
+        $filterActive = false; 
+        $messages = sortMessages("email", $limit, $filterActive);        
     } else {
         unset($_SESSION["sortOrders"]);
         $messages = getMessages($limit);
@@ -147,4 +156,3 @@
         </div>
     </body>
 </html>
-<?php     var_dump($_SESSION); ?>
