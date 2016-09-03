@@ -21,30 +21,29 @@ function changeSortOrders($field) {
         $_SESSION["sortOrders"][$field] = "ASC";
 }
 
-//performs date string conversion to timestap and sorts correctly
-function sortDate($messages, $field) {
-    if ($field == "date") {
-        usort($messages, "sortFunction");
-        //if sort is in DESC order just reverse array
-        if ($_SESSION["sortOrders"]["date"] == "DESC") {
-            $messages = array_reverse($messages);
-        }
-    }
+//check wether an active sort filter exists. If it is - return filtered column name
+function checkActiveSort() {
+    $columnName = "";
     
-    return $messages;
+    if (isset($_SESSION["sortOrders"])) {
+       foreach ($_SESSION["sortOrders"] as $key => $value) {
+           if (!empty($value)) {
+               $columnName = "sort" . ucfirst($key);
+               break;
+           }
+       }       
+    }
+
+    
+    return $columnName;
 }
 
-//sorting function for usort function (for date) 
-function sortFunction( $a, $b ) { 
-    return strtotime($a["date"]) - strtotime($b["date"]);
-}
-
-function sortMessages($field) {
+function sortMessages($field, $limit) {
     $messages = array();   
     
     changeSortOrders($field);
     
-    $resulSet = $GLOBALS["db"]->query("SELECT * FROM messages ORDER BY ".$field." ".$_SESSION["sortOrders"][$field]);
+    $resulSet = $GLOBALS["db"]->query("SELECT * FROM messages ORDER BY ".$field." ".$_SESSION["sortOrders"][$field]." ".$limit);
         
     $i = 0;
     while ($row = $resulSet->fetch()) {
@@ -54,9 +53,6 @@ function sortMessages($field) {
         $messages[$i]["text"] = $row["text"];
         $i++;
     }
-    
-    //if the sort by date needed use usort function for correct sort by date
-    $messages = sortDate($messages, $field);
     
     return $messages;
 }

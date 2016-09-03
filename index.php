@@ -6,15 +6,25 @@
     require_once 'components/pagination.php';
     
     //display messages
-    if (isset($_POST['sortDate'])) {
-        $messages = sortMessages("date");
-    } elseif (isset($_POST['sortUsername'])) {
-        $messages = sortMessages("username");
-    } elseif (isset($_POST['sortEmail'])) {
-        $messages = sortMessages("email");
+    if (isset($_GET['activeSort'])) {
+        $sortOrder = $_GET['activeSort'];   //SANITAZE HERE!!! 
+        echo $sortOrder;
+    }
+    else  
+        $sortOrder = "";
+    
+    if (isset($_POST['sortDate']) || $sortOrder == "sortDate") {
+        $messages = sortMessages("date", $limit);
+    } elseif (isset($_POST['sortUsername']) || $sortOrder == "sortUsername") {
+        $messages = sortMessages("username", $limit);
+    } elseif (isset($_POST['sortEmail']) || $sortOrder == "sortEmail") {
+        $messages = sortMessages("email", $limit);
     } else {
+        unset($_SESSION["sortOrders"]);
         $messages = getMessages($limit);
     }
+    
+    require_once 'components/pagination2.php';
     
     //user input validation
     $errors = array (
@@ -55,7 +65,7 @@
                         <th class="filter-buttons">
                             <div class="sort-button" id="sortByDate" onclick="submitButton('sortDate');">Date 
                             <!-- sort icon -->
-                            <?php $date = $_SESSION["sortOrders"]["date"];
+                            <?php if (isset($_SESSION["sortOrders"])) $date = $_SESSION["sortOrders"]["date"];
                                   if(empty($date)) { 
                                     echo "<img class='sort-icon' style='display: none'  src='sort_desc.png' alt='sort descending'>";
                                 } elseif ($date == "ASC") { 
@@ -69,7 +79,7 @@
                         <th class="filter-buttons">
                             <div class="sort-button" id="sortByUsername" onclick="submitButton('sortUsername');">Username 
                             <!-- sort icon -->
-                            <?php $username = $_SESSION["sortOrders"]["username"];
+                            <?php if (isset($_SESSION["sortOrders"])) $username = $_SESSION["sortOrders"]["username"];
                                   if(empty($username)) { 
                                     echo "<img class='sort-icon' style='display: none'  src='sort_desc.png' alt='sort descending'>";
                                 } elseif ($username == "ASC") { 
@@ -83,7 +93,7 @@
                         <th class="filter-buttons">
                             <div class="sort-button" id="sortByEmail" onclick="submitButton('sortEmail');">E-mail 
                             <!-- sort icon -->
-                            <?php $email = $_SESSION["sortOrders"]["email"];
+                            <?php if (isset($_SESSION["sortOrders"])) $email = $_SESSION["sortOrders"]["email"];
                                   if(empty($email)) { 
                                     echo "<img class='sort-icon' style='display: none'  src='sort_desc.png' alt='sort descending'>";
                                 } elseif ($email == "ASC") { 
@@ -110,8 +120,9 @@
                 </form>
             </div>
             <div id="pagination">
-                <h2><?php echo $textline1; ?></h2>
-                <h2><?php echo $textline1; ?></h2>
+                <h3><?php echo $textline1; ?></h3>
+                <p><?php echo $textline2; ?></p>
+                <?php echo $paginationCtrls; ?>
             </div>
             <div id="input">
                 <h3>Leave a message!</h3>
@@ -136,3 +147,4 @@
         </div>
     </body>
 </html>
+<?php     var_dump($_SESSION); ?>
