@@ -1,9 +1,17 @@
 <?php
     session_start();
     require_once 'components/db_connection.php';
+    
+    //initialize database connection
+    $pdo_conn = PDOConnection::instance();
+    $db = $pdo_conn->getConnection("mysql:host=localhost;dbname=guestbook", "root", "");
+    
     require_once 'components/functions.php';
     require_once 'sort_messages.php';
     require_once 'components/pagination.php';
+    require_once 'Message.php';
+    
+
     
     //display messages
     $filterActive=true;
@@ -30,7 +38,8 @@
         $messages = sortMessages("email", $limit, $filterActive);        
     } else {
         unset($_SESSION["sortOrders"]);
-        $messages = getMessages($limit);
+        $message = new Message($db);
+        $messages = $message->getMessages($limit);
     }
     
     require_once 'components/pagination2.php';
@@ -148,7 +157,7 @@
                     <!-- CAPTCHA -->
                     <label class="align-top">Message<span class="red-star">*</span>: </label> 
                     <textarea id="text" name="text" rows="5" cols="40"></textarea>
-                    <p id="textError"  class="errorText align-top"><?php echo $errors['text']; ?></p><br />
+                    <p id="textError"  class="errorText align-top"><?php echo $errors['text']; ?></p>
                     <input id="submit-button" type="submit" name="sendMessage" value="Submit!">
                 </form>               
                 

@@ -51,9 +51,12 @@ body {
 .align-top {
     vertical-align: top;
 }
+label.align-top, label.align-top + textarea {float:left; margin-right: 4px; margin-bottom: 10px;}
+
 #submit-button {
     display: block;
     margin: 0px auto;
+    clear: both;
 }
 .errorText {
     display: inline;

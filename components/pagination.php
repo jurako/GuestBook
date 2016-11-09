@@ -1,6 +1,6 @@
 <?php
     //get number of messages in table
-    $result = $GLOBALS["db"]->query("SELECT COUNT(user_id) FROM messages");
+    $result = $db->query("SELECT COUNT(user_id) FROM messages");
     $rowCount = $result->fetch();
     $rowCount = $rowCount[0];
     
