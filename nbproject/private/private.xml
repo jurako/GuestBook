@@ -2,19 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/xampp/htdocs/GuestBook/index.php</file>
-            <file>file:/C:/xampp/htdocs/GuestBook/Message.php</file>
-            <file>file:/C:/xampp/htdocs/GuestBook/components/functions.php</file>
-            <file>file:/C:/xampp/htdocs/GuestBook/sort_messages.php</file>
-            <file>file:/C:/xampp/htdocs/GuestBook/sorting_functions.js</file>
-            <file>file:/C:/xampp/htdocs/GuestBook/components/pagination2.php</file>
-            <file>file:/C:/xampp/htdocs/GuestBook/style.css</file>
-            <file>file:/C:/xampp/htdocs/GuestBook/Validate.php</file>
-            <file>file:/C:/xampp/htdocs/GuestBook/Sort.php</file>
-            <file>file:/C:/xampp/htdocs/GuestBook/MessageRepository.php</file>
-            <file>file:/C:/xampp/htdocs/GuestBook/components/pagination.php</file>
-            <file>file:/C:/xampp/htdocs/GuestBook/components/db_connection.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

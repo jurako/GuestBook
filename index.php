@@ -1,9 +1,11 @@
 <?php
     session_start();
     require_once 'components/db_connection.php';
+    require_once 'components/PaginationC.php';
+    require_once 'components/Sort.php';
     
     //initialize database connection
-    $pdo_conn = PDOConnection::instance();
+    $pdo_conn = PDOConnection::instance(); //singleton object
     $db = $pdo_conn->getConnection("mysql:host=localhost;dbname=guestbook", "root", "");
     
     require_once 'components/functions.php';
@@ -11,7 +13,14 @@
     require_once 'components/pagination.php';
     require_once 'Message.php';
     
-
+    $sort = new Sort();
+    $pagination = new Pagination($db);
+    
+    if($sort->sortActive())
+      //sortMessages
+    else
+      //unset sort->removeActiveSort
+      //getMessages
     
     //display messages
     $filterActive=true;
@@ -74,9 +83,10 @@
         <script type="text/javascript" src="sorting_functions.js"></script>
     </head>
     <body>
+        <?php echo $sort->generateSortLinks(); ?>
         <div id="container">
             <div id="messages">   
-                <form id="sort-form" action="<?php echo generateSortLinks(); ?>" method="POST">
+                <form id="sort-form" action="<?php echo $sort->generateSortLinks(); ?>" method="POST">
                 <table id="main-table">
                     <tr>
                         <!---------------------------- SORTING ---------------------------------->
@@ -92,7 +102,7 @@
                                     echo "<img class='sort-icon' style='display: inline-block'  src='sort_desc.png' alt='sort descending'>";
                                 } ?>
                             </div>    
-                            <input type="submit" name="sortDate" id="sortDate" style="display: none;">
+                            <input type="submit" name="activeSort" id="sortDate" value="date" style="display: none;">
                         </th>
                         <th class="filter-buttons">
                             <div class="sort-button" id="sortByUsername" onclick="submitButton('sortUsername');">Username 
@@ -106,7 +116,7 @@
                                     echo "<img class='sort-icon' style='display: inline-block'  src='sort_desc.png' alt='sort descending'>";
                                 } ?>
                             </div>    
-                            <input type="submit" name="sortUsername" id="sortUsername" style="display: none;">
+                            <input type="submit" name="activeSort" id="sortUsername" value="username" style="display: none;">
                         </th>
                         <th class="filter-buttons">
                             <div class="sort-button" id="sortByEmail" onclick="submitButton('sortEmail');">E-mail 
@@ -120,7 +130,7 @@
                                     echo "<img class='sort-icon' style='display: inline-block'  src='sort_desc.png' alt='sort descending'>";
                                 } ?>
                             </div>    
-                            <input type="submit" name="sortEmail" id="sortEmail" style="display: none;">
+                            <input type="submit" name="activeSort" id="sortEmail" value="email" style="display: none;">
                         </th>
                         <!-----------------------------END SORTING------------------------------------->
                     </tr>
